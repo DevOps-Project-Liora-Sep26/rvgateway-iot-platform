@@ -1,0 +1,109 @@
+/* ============================================================
+ * File:    alarmCard.module.css
+ * Author:  Markus Gerstenberg
+ *
+ * Description:
+ * Styling for the gateway alarm card component.
+ *
+ * Defines the normal and alarm states of an alarm card,
+ * including the status icon, status text and visual alarm
+ * indication.
+ * ============================================================ */
+
+
+/* ============================================================
+ * CARD
+ * ============================================================ */
+
+.card {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-main);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px var(--color-shadow-card);
+
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* ============================================================
+ * STATUS ICON
+ * ============================================================ */
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 24px 0 20px;
+}
+
+
+/* ============================================================
+ * STATUS
+ * ============================================================ */
+
+.status {
+  font-size: 24px;
+  font-weight: 600;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+
+/* ============================================================
+ * NORMAL STATE
+ * ============================================================ */
+
+.normal .icon{
+  color: var(--color-text-muted);
+}
+.normal .status {
+  color: var(--color-success);
+}
+
+
+/* ============================================================
+ * ALARM STATE
+ * ============================================================ */
+
+.alarm {
+  background: var(--color-alarm-background);
+  border-color: var(--color-danger);
+
+  animation: alarmPulse 2s ease-in-out infinite;
+}
+
+.alarm .icon,
+.alarm .status {
+  color: var(--color-danger);
+}
+
+.alarm .status {
+  font-weight: 700;
+}
+
+
+/* ============================================================
+ * ALARM ANIMATION
+ * ============================================================ */
+
+@keyframes alarmPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px var(--color-alarm-glow-light);
+  }
+
+  50% {
+    box-shadow: 0 0 18px var(--color-alarm-glow-strong);
+  }
+}

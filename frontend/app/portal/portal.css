@@ -1,0 +1,976 @@
+/* ============================================================
+ * File:        portal.css
+ * Author:      Markus Gerstenberg
+ * Description: Portal-specific layouts and components.
+ *
+ * Design tokens and global primitives are defined in globals.css.
+ * ============================================================ */
+
+/* ============================================================
+   1. SHARED PORTAL SURFACES
+   ============================================================ */
+/* Base Utility for Panels (Shared Layout Properties) */
+.settings-panel,
+.add-gateway-panel,
+.gateway-panel,
+.info-panel,
+.dashboard-panel {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-panel);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px var(--color-shadow-panel);
+}
+
+.settings-panel h2,
+.add-gateway-panel h2,
+.gateway-panel-header h2,
+.info-panel h2,
+.dashboard-panel-header h2 {
+  margin: 0 0 30px;
+  font-size: 24px;
+  color: var(--color-text-dark);
+}
+
+.add-gateway-panel h2 {
+  margin-bottom: 18px;
+}
+
+/* ============================================================
+   2. GLOBAL LAYOUTS & LOADING
+   ============================================================ */
+.portal {
+  min-height: 100vh;
+  display: flex;
+  gap: 18px;
+  padding: 18px;
+  background: var(--color-bg-portal);
+}
+
+.portal-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.portal-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-portal);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-border-sidebar);
+}
+
+/* ============================================================
+   3. SIDEBAR COMPONENT
+   ============================================================ */
+.sidebar {
+  width: 270px;
+  min-height: calc(100vh - 36px);
+  background: var(--color-bg-sidebar);
+  color: var(--color-text-light);
+  padding: 30px 26px;
+  border: 1px solid var(--color-border-sidebar);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px var(--color-shadow-sidebar);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Sidebar Brand Area */
+.sidebar-brand {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.sidebar-brand h1 {
+  font-size: 35px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--color-text-light);
+
+  transform: translateX(-10px);
+}
+
+.sidebar-brand span {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  color: var(--color-text-sidebar-brand);
+}
+
+.sidebar-brand::after {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 3px;
+  margin: 12px auto 0;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* Sidebar User Info */
+.sidebar-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.sidebar-user-label {
+  font-size: 12px;
+  color: var(--color-text-sidebar-muted);
+}
+
+.sidebar-user-email {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-light);
+}
+
+.sidebar-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-divider-sidebar);
+  margin: 0 0 14px 0;
+}
+
+/* Sidebar Navigation Items */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.sidebar-item {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-nav);
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: var(--color-overlay-light);
+}
+
+.sidebar-item.active {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  box-shadow: 0 3px 8px var(--color-primary-shadow);
+}
+
+.sidebar-item.active:hover {
+  background: var(--color-primary-hover);
+}
+
+.sidebar-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+/* ============================================================
+   4. INTERACTIVE ELEMENTS (Buttons & Inputs)
+   ============================================================ */
+/* Global Buttons */
+.portal-button {
+  height: 40px;
+  padding: 0 22px;
+  border: 1px solid;
+  border-radius: 20px;
+  background: var(--color-button-background);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.portal-button.primary {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.portal-button.primary:hover {
+  background: var(--color-primary);
+  color: var(--color-button-text-hover);
+}
+
+.portal-button.danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.portal-button.danger:hover {
+  background: var(--color-danger);
+  color: var(--color-button-text-hover);
+}
+
+.portal-button:active { transform: translateY(1px); }
+.portal-button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Custom Action/Wrapper Buttons */
+.password-toggle-button,
+.gateway-settings-button,
+.gateway-header-back,
+.gateway-header-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-border-sidebar);
+}
+
+.password-toggle-button {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  transform: translateY(-50%);
+}
+
+.password-toggle-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.gateway-settings-button {
+  width: 38px;
+  height: 38px;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 0;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.gateway-header-back,
+.gateway-header-action-button {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.gateway-header-back { border-radius: 9px; }
+.gateway-header-action-button { border-radius: 50%; }
+
+.gateway-settings-button:hover,
+.gateway-header-back:hover,
+.gateway-header-action-button:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+}
+
+/* Global Form Fields */
+.settings-input-group input,
+.gateway-name-input {
+  border: 1px solid var(--color-border-input);
+  background: var(--color-bg-card);
+  color: var(--color-text-dark);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settings-input-group input:hover,
+.gateway-name-input:hover {
+  border-color: var(--color-border-input-hover);
+}
+
+.settings-input-group input:focus,
+.gateway-name-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-focus);
+}
+
+/* ============================================================
+   5. SETTINGS PANEL & PROFILE CONFIG
+   ============================================================ */
+.settings-panel {
+  flex: 1;
+  padding: 28px;
+}
+
+.settings-section {
+  max-width: 500px;
+}
+
+.settings-section h3 {
+  margin: 0 0 20px;
+  font-size: 18px;
+  color: var(--color-bg-sidebar);
+}
+
+.settings-section > label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.profile-email {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.settings-divider {
+  height: 1px;
+  background: var(--color-border-main);
+  margin: 30px 0;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-input-group label {
+  font-size: 13px;
+  color: var(--color-border-sidebar);
+}
+
+.settings-input-group input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 21px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.settings-button {
+  width: 180px;
+  margin-top: 5px;
+}
+
+.settings-error {
+  font-size: 14px;
+  color: var(--color-danger);
+}
+
+.settings-success {
+  font-size: 14px;
+  color: var(--color-success-alt);
+}
+
+/* Danger Management inside Settings */
+.danger-section p {
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.delete-confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.delete-confirmation p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-danger);
+}
+
+.delete-confirmation-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-cancel-button,
+.delete-confirm-button {
+  height: 40px;
+  padding: 0 22px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.delete-cancel-button {
+  border: 1px solid var(--color-border-input-hover);
+  background: var(--color-bg-card);
+  color: var(--color-border-sidebar);
+}
+
+.delete-cancel-button:hover {
+  background: var(--color-bg-portal);
+}
+
+.delete-confirm-button {
+  border: 1px solid var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-text-light);
+}
+
+.delete-confirm-button:hover {
+  background: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+/* ============================================================
+6. GATEWAY MANAGEMENT
+============================================================ /
+/ Add New Gateway */
+.add-gateway-panel {
+  padding: 24px;
+}
+
+.add-gateway-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gateway-name-input {
+  width: 300px;
+  height: 38px;
+  padding: 0 15px;
+  border-radius: 19px;
+}
+
+.add-gateway-button {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  font-size: 25px;
+  font-weight: 300;
+  cursor: pointer;
+  box-shadow: 0 3px 8px var(--color-primary-shadow-soft);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.add-gateway-button:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 4px 10px var(--color-primary-shadow-strong);
+}
+
+.add-gateway-button:active {
+  transform: translateY(1px);
+}
+
+.gateway-add-message {
+  margin-left: 0.75rem;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.gateway-add-message.info { color: var(--color-text-dark); }
+.gateway-add-message.success { color: var(--color-success); }
+.gateway-add-message.error { color: var(--color-danger); }
+/* My Gateways Panel & Layout */
+.gateway-panel {
+  flex: 1;
+  min-height: 500px;
+  padding: 24px;
+}
+
+.gateway-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+/* Unified Gateway Card Components */
+.gateway-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-main);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px var(--color-shadow-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gateway-card:hover {
+  border-color: var(--color-border-input);
+  box-shadow: 0 4px 10px var(--color-shadow-panel);
+}
+
+.gateway-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.gateway-card-header h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--color-text-dark);
+}
+
+.gateway-card-header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gateway-card-identity {
+  min-width: 0;
+}
+
+.gateway-card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.gateway-card-name {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--color-text-dark);
+}
+
+.gateway-card-title .gateway-status {
+flex-shrink: 0;
+}
+
+.gateway-card-uid,
+.gateway-id {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--color-text-id);
+}
+
+.gateway-card-divider {
+  height: 1px;
+  margin: 16px 0;
+  background: var(--color-border-card);
+}
+
+.gateway-card-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.gateway-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.gateway-info span {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.gateway-info strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-bg-sidebar);
+}
+
+.gateway-info:last-child {
+  min-width: 70px;
+  margin-left: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.gateway-info-connection {
+  flex-shrink: 0;
+  min-width: 90px;
+  align-items: center;
+  text-align: center;
+}
+
+.gateway-info-secondary {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.gateway-open-button {
+  width: 100%;
+  margin-top: 18px;
+}
+
+
+
+/* ============================================================
+   GATEWAY HEADER COMPONENT
+============================================================ */
+.gateway-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.gateway-header-panel {
+  flex: none;
+}
+
+.gateway-header-identity {
+  min-width: 0;
+  flex: 1;
+  padding-left: 18px;
+  border-left: 1px solid var(--color-border-main);
+}
+
+.gateway-header-title {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gateway-header .gateway-header-name {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--color-text-dark);
+}
+
+.gateway-header-uid {
+  display: block;
+  max-width: 100%;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+.gateway-header-updated,
+.gateway-header-connection,
+.gateway-header-boot-epoch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  padding: 0 18px;
+  border-left: 1px solid var(--color-border-main);
+}
+
+.gateway-header-updated { 
+  min-width: 200px; 
+
+}
+.gateway-header-connection { 
+  min-width: 80px; 
+}
+
+.gateway-header-boot-epoch {
+  min-width: 80px;
+}
+
+.gateway-header-updated > span:first-child,
+.gateway-header-connection > span:first-child,
+.gateway-header-boot-epoch > span:first-child {
+  margin-bottom: 3px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.gateway-header-updated strong,
+.gateway-header-connection strong,
+.gateway-header-boot-epoch strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-bg-sidebar);
+}
+
+.gateway-header-secondary {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.gateway-header-action {
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  border-left: 1px solid var(--color-border-main);
+  flex-shrink: 0;
+}
+
+/* Component Status Labels */
+.gateway-status {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 3px;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.gateway-status-dot {
+  width: 9px;
+  height: 9px;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.gateway-status.unknown {
+  color: var(--color-text-secondary);
+  background: var(--color-status-unknown-bg);
+}
+
+.gateway-status.unknown .gateway-status-dot { 
+  background: var(--color-text-secondary); 
+}
+
+.gateway-status.online {
+  color: var(--color-status-online);
+  background: var(--color-status-online-bg);
+  box-shadow: 0 0 8px var(--color-status-online-glow);
+}
+
+.gateway-status.online .gateway-status-dot {
+  background: var(--color-status-online);
+  box-shadow: 0 0 6px var(--color-status-online-dot-glow);
+}
+
+.gateway-status.offline {
+  color: var(--color-danger);
+  background: var(--color-alarm-background);
+  box-shadow: 0 0 8px var(--color-alarm-glow-light);
+}
+
+.gateway-status.offline .gateway-status-dot {
+  background: var(--color-danger);
+  box-shadow: 0 0 6px var(--color-status-offline-dot-glow);
+}
+/* ============================================================
+   GATEWAY HEADER - RESPONSIVE
+   ============================================================ */
+
+  @media (max-width: 1000px) {
+
+    .gateway-header {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr 1fr 1fr auto;
+
+      grid-template-areas:
+        "menu identity identity identity identity action"
+        "updated updated connection connection boot boot";
+
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .gateway-header-back {
+      grid-area: menu;
+      align-self: center;
+    }
+
+    .gateway-header-identity {
+      grid-area: identity;
+      align-self: center;
+
+      padding-left: 18px;
+      border-left: 1px solid var(--color-border-main);
+    }
+
+    .gateway-header-action {
+      grid-area: action;
+      align-self: center;
+
+      padding-left: 18px;
+      border-left: 1px solid var(--color-border-main);
+    }
+
+
+    /* Second row */
+
+    .gateway-header-updated {
+      grid-area: updated;
+      min-width: 180px;
+    }
+
+    .gateway-header-connection {
+      min-width: 100px;
+      grid-area: connection;
+    }
+
+    .gateway-header-boot-epoch {
+      min-width: 120px;
+      grid-area: boot;
+    }
+
+    .gateway-header-updated,
+    .gateway-header-connection,
+    .gateway-header-boot-epoch {
+      padding: 12px 18px 0;
+      margin-top: 10px;
+
+      border-top: 1px solid var(--color-border-main);
+      border-left: 1px solid var(--color-border-main);
+    }
+
+    .gateway-header-updated {
+      border-left: none;
+    }
+  }
+/* ============================================================
+7. INFO PANEL & TEXT STYLES
+============================================================ */
+.info-panel {
+  flex: 1;
+  padding: 28px;
+}
+
+.info-section {
+  max-width: 700px;
+}
+
+.info-section h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: var(--color-text-dark);
+}
+
+.info-section p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-dark);
+}
+
+.info-section p + p {
+  margin-top: 14px;
+}
+
+.info-divider {
+  height: 1px;
+  background: var(--color-border-main);
+  margin: 28px 0;
+}
+
+/* ============================================================
+   8. DASHBOARD
+   ============================================================ */
+
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  justify-content: start;
+}
+
+.dashboard-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dashboard-panel {
+  flex: 1;
+  min-height: 500px;
+  padding: 24px;
+}
+
+.dashboard-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.dashboard-panel-header h2 {
+  margin-bottom: 0;
+}

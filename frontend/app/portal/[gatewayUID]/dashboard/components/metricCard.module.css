@@ -1,0 +1,88 @@
+/* ============================================================
+ * File:    metricCard.module.css
+ * Author:  Markus Gerstenberg
+ *
+ * Description:
+ * Styling for the gateway metric card component.
+ *
+ * Defines the card layout, metric value, measurement scale,
+ * progress indicator and scale markers.
+ * ============================================================ */
+
+.card {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-main);
+  border-radius: 6px;
+  box-shadow: 0 2px 5px var(--color-shadow-card);
+}
+
+.value {
+  margin-top: 22px;
+  margin-bottom: 24px;
+
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1;
+
+  text-align: center;
+}
+
+
+.unit {
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.scale {
+  position: relative;
+  padding-bottom: 26px;
+}
+
+.track {
+  width: 100%;
+  height: 10px;
+  background: var(--color-border-card);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 999px;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.markers {
+  position: relative;
+  width: 100%;
+}
+
+.marker {
+  position: absolute;
+  top: 4px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.marker:first-child {
+  transform: translateX(0);
+}
+
+.marker:last-child {
+  transform: translateX(-100%);
+}
+
+.markerLine {
+  width: 1px;
+  height: 5px;
+  margin: 0 auto 3px;
+  background: var(--color-border-main);
+}

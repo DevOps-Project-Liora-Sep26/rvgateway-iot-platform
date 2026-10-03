@@ -1,0 +1,413 @@
+/* ============================================================
+ * File:        globals.css
+ * Author:      Markus Gerstenberg
+ * Description: Global design system, reset and authentication UI.
+ *
+ * Shared colors and visual tokens are based on the portal design.
+ * The login page keeps its dedicated background/layout while its
+ * controls and surfaces use the same visual language as the portal.
+ * ============================================================ */
+
+/* ============================================================
+   1. DESIGN SYSTEM
+   ============================================================ */
+:root {
+  /* Brand & Accent Colors */
+  --color-primary: #d9822b;
+  --color-primary-hover: #b96b20;
+  --color-danger: #b94a48;
+  --color-danger-hover: #9e3d3b;
+  --color-success: #22c55e;
+  --color-success-alt: #3c8d89;
+
+  /* Background Colors */
+  --color-bg-portal: #eef1f2;
+  --color-bg-panel: #f8f9f9;
+  --color-bg-sidebar: #3f4a50;
+  --color-bg-card: #ffffff;
+
+  /* Text Colors */
+  --color-text-dark: #252b2e;
+  --color-text-muted: #687278;
+  --color-text-sidebar-muted: #b9c1c5;
+  --color-text-sidebar-brand: #c9d0d3;
+  --color-text-light: #ffffff;
+  --color-text-nav: #f1f3f4;
+  --color-text-secondary: #7a858a;
+
+  /* Borders & Dividers */
+  --color-border-main: #d5dadd;
+  --color-border-input: #aeb6ba;
+  --color-border-input-hover: #89959b;
+  --color-border-sidebar: #56636b;
+  --color-divider-sidebar: rgba(255, 255, 255, 0.25);
+
+  /* Shadows */
+  --color-shadow-sidebar: rgba(37, 43, 46, 0.18);
+  --color-shadow-panel: rgba(37, 43, 46, 0.12);
+  --color-shadow-card: rgba(37, 43, 46, 0.08);
+
+  /* Button Defaults */
+  --color-button-background: #ffffff;
+  --color-button-text-hover: #ffffff;
+
+  /* Metric Colors */
+  --color-metric-violet: #ad07ee;
+  --color-metric-dark-blue: #1e40af;
+  --color-metric-blue: #3b82f6;
+  --color-metric-green: #1aaf51;
+  --color-metric-yellow: #eab308;
+  --color-metric-orange: #f97316;
+  --color-metric-red: #dc2626;
+  --color-metric-pink: #f301a2;
+  --color-metric-dark-red: #991b1b;
+
+  /* Alarm Colors */
+  --color-alarm-background: rgba(185, 74, 72, 0.08);
+  --color-alarm-glow-light: rgba(185, 74, 72, 0.20);
+  --color-alarm-glow-strong: rgba(185, 74, 72, 0.65);
+
+  /* Gateway Connection States */
+--color-status-online: #00b86b;
+--color-status-online-bg: rgba(0, 184, 107, 0.08);
+--color-status-online-glow: rgba(0, 184, 107, 0.25);
+--color-status-online-dot-glow: rgba(0, 184, 107, 0.75);
+
+--color-status-offline-bg: rgba(185, 74, 72, 0.08);
+--color-status-offline-glow: rgba(185, 74, 72, 0.20);
+--color-status-offline-dot-glow: rgba(185, 74, 72, 0.65);
+
+--color-status-unknown-bg: rgba(122, 133, 138, 0.08);
+
+  /* Chart */
+  --color-chart-axis: #687278;
+  --color-chart-axis-strong: #465158;
+  --color-chart-grid: rgba(213, 218, 221, 0.65);
+  --color-chart-tooltip-background: #3f4a50;
+  --color-chart-tooltip-text: #ffffff;
+  --color-chart-point-border: #ffffff;
+}
+
+/* ============================================================
+   2. GLOBAL RESET & BASE TYPOGRAPHY
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text-dark);
+}
+
+/* ============================================================
+   3. AUTHENTICATION / LOGIN
+   Keep the original login composition and background.
+   ============================================================ */
+.login-page {
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(20, 25, 28, 0.12),
+      rgba(20, 25, 28, 0.18)
+    ),
+    url("/background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  padding-left: 6vw;
+}
+
+/* ============================================================
+   4. LOGIN PANEL
+   Portal panel surface: 12px radius, panel border and shadow.
+   ============================================================ */
+.login-card {
+  width: 380px;
+  min-height: 650px;
+  padding: 55px 45px 35px;
+
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-main);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px var(--color-shadow-panel);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   5. BRANDING
+   ============================================================ */
+.logo {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.logo h1 {
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.logo span {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.logo::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 3px;
+  margin: 14px auto 0;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   6. FORM & INPUTS
+   Portal settings inputs: 42px height / 21px radius.
+   ============================================================ */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: var(--color-border-sidebar);
+}
+
+.input-group input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+
+  border: 1px solid var(--color-border-input);
+  border-radius: 21px;
+  background: var(--color-bg-card);
+
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text-dark);
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-group input:hover {
+  border-color: var(--color-border-input-hover);
+}
+
+.input-group input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(217, 130, 43, 0.12);
+}
+
+.input-group input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   7. PASSWORD FIELD
+   ============================================================ */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  color: var(--color-border-sidebar);
+
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: var(--color-primary);
+}
+
+.password-toggle svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================================
+   8. AUXILIARY ACTIONS
+   ============================================================ */
+.forgot-password {
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--color-border-sidebar);
+
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.forgot-password:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ============================================================
+   9. BUTTONS
+   Portal buttons: 40px height / 20px radius.
+   ============================================================ */
+.login-button,
+.register-button {
+  width: 100%;
+  height: 40px;
+  padding: 0 22px;
+
+  border: 1px solid;
+  border-radius: 20px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.login-button {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.login-button:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.login-button:active {
+  transform: translateY(1px);
+}
+
+.register-button {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-input-hover);
+  color: var(--color-border-sidebar);
+}
+
+.register-button:hover {
+  background: var(--color-bg-portal);
+}
+
+
+.register-button:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================
+   10. FEEDBACK MESSAGES
+   ============================================================ */
+.login-error,
+.register-success {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.login-error {
+  color: var(--color-danger);
+}
+
+.register-success {
+  color: var(--color-success-alt);
+}
+
+.login-error span,
+.register-success span {
+  display: block;
+}
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+footer {
+  margin-top: auto;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+/* ============================================================
+   12. RESPONSIVE
+   Desktop stays left-aligned; small screens center the panel.
+   ============================================================ */
+@media (max-width: 520px) {
+  .login-page {
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .login-card {
+    width: 100%;
+    min-height: 0;
+    padding: 40px 28px 28px;
+  }
+
+  .logo {
+    margin-bottom: 48px;
+  }
+
+  .logo h1 {
+    font-size: 36px;
+  }
+}
