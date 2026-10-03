@@ -8,7 +8,9 @@ This project is based on an existing and operational [ESP32-based IoT Edge Devic
 
 The work within this project will focus on the infrastructure and data flow required to provide this data through a simple web application. According to the project requirements, the focus is on the deployment and operation of the required microservices. Backend logic development and application design are only part of the scope as far as they are needed for the core functionalities.
 
-> **Getting Started:** [SETUP.md](SETUP.md) describes the  setup of the initial application!
+## Getting Started
+
+> **2026.10.03 - Initial Setup:** [SETUP.md](SETUP.md) describes the  setup of the initial application!
 
 ## Repository Structure
 
