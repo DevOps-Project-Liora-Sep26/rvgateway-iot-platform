@@ -379,9 +379,15 @@ export default function GatewayHeader() {
       return "—";
     }
 
+    if (telemetry.network_type === "CELLULAR") {
+      return `CSQ ${telemetry.rssi}`;
+    }
 
-    return `${telemetry.rssi} dBm`;
+    if (telemetry.network_type === "WIFI") {
+      return `${telemetry.rssi} dBm`;
+    }
 
+    return "—";
   };
 
 

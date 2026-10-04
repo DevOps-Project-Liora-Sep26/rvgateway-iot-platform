@@ -52,7 +52,7 @@ export default function MetricSelector({
         <option value="humidity">Humidity</option>
         <option value="waterAlarm">Water Detected</option>
         <option value="smokeAlarm">Smoke Detected</option>
-        <option value="rssi">RSSI</option>
+        <option value="rssi">Signal Strength</option>
         <option value="bootEpoch">Boot Epoch</option>
         <option value="telemetryInterval">Telemetry Interval</option>
       </select>

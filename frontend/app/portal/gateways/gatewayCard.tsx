@@ -193,11 +193,23 @@ const formatTimeSinceTelemetry = () => {
     ========================================================== */
 
   const formatRssi = () => {
-    if (status?.rssi === null || status?.rssi === undefined) {
+
+    if (
+      status?.rssi === null ||
+      status?.rssi === undefined
+    ) {
       return "—";
     }
 
-    return `${status.rssi} dBm`;
+    if (status.network_type === "CELLULAR") {
+      return `CSQ ${status.rssi}`;
+    }
+
+    if (status.network_type === "WIFI") {
+      return `${status.rssi} dBm`;
+    }
+
+    return "Signal: —";
   };
 
 

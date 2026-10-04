@@ -26,7 +26,7 @@ import {
 import "chartjs-adapter-date-fns";
 
 import { Line } from "react-chartjs-2";
-import {TELEMETRY_ALLOWED_CHART_DELAY} from "../../../../variables";
+import { TELEMETRY_ALLOWED_CHART_DELAY } from "../../../../variables";
 
 import type {
   Metric,
@@ -35,7 +35,6 @@ import type {
 } from "../../../../hooks/useHistoricalData";
 
 import styles from "./historicalChart.module.css";
-
 
 
 /* ============================================================
@@ -111,14 +110,14 @@ const metricConfig: Record<
   },
 
   rssi: {
-    label: "RSSI",
-    unit: "dBm",
+    label: "Signal Strength",
+    unit: "%",
     colorVariable: "--color-metric-green",
   },
 
   bootEpoch: {
     label: "Boot Epoch",
-    unit: "s",
+    unit: "",
     colorVariable: "--color-metric-yellow",
   },
 
@@ -138,7 +137,7 @@ const metricConfig: Record<
     label: "Smoke Detected",
     unit: "",
     colorVariable: "--color-metric-red",
-  }
+  },
 };
 
 
@@ -154,14 +153,93 @@ const timeRangeMilliseconds: Record<TimeRange, number> = {
   "30d": 30 * 24 * 60 * 60 * 1000,
 };
 
+
 /* ============================================================
  * TELEMETRY GAP HANDLING
  * ============================================================ */
 
 const TELEMETRY_BUFFER_TIME = 100;
 
+
+/* ============================================================
+ * SIGNAL STRENGTH NORMALIZATION
+ * ============================================================ */
+
+function signalStrengthToPercent(value: number): number {
+
+  /*
+   * WiFi RSSI is stored in dBm and therefore has
+   * negative values.
+   *
+   * Normalization:
+   *
+   * -100 dBm ->   0 %
+   *  -75 dBm ->  50 %
+   *  -50 dBm -> 100 %
+   */
+
+  if (value < 0) {
+    return Math.max(
+      0,
+      Math.min(100, (value + 100) * 2)
+    );
+  }
+
+
+  /*
+   * Cellular signal strength is stored as CSQ.
+   *
+   * Valid range:
+   *
+   * CSQ  0 ->   0 %
+   * CSQ 31 -> 100 %
+   *
+   * Values above 31 are invalid or unavailable.
+   * CSQ 99 indicates unknown signal strength.
+   */
+
+  if (value <= 31) {
+    return Math.max(
+      0,
+      Math.min(100, (value / 31) * 100)
+    );
+  }
+
+
+  /*
+   * Invalid / unavailable signal strength.
+   */
+
+  return 0;
+}
+
+
+/* ============================================================
+ * CHART VALUE
+ * ============================================================ */
+
+function getChartValue(
+  dataPoint: HistoricalDataPoint,
+  metric: Metric
+): number {
+
+  if (metric === "rssi") {
+    return signalStrengthToPercent(
+      dataPoint.value
+    );
+  }
+
+  return dataPoint.value;
+}
+
+
+/* ============================================================
+ * CHART DATA
+ * ============================================================ */
+
 function createChartData(
-  historicalData: HistoricalDataPoint[]
+  historicalData: HistoricalDataPoint[],
+  metric: Metric
 ) {
 
   const chartData: {
@@ -204,12 +282,16 @@ function createChartData(
 
     chartData.push({
       x: timestamp,
-      y: dataPoint.value,
+      y: getChartValue(
+        dataPoint,
+        metric
+      ),
     });
   });
 
   return chartData;
 }
+
 
 /* ============================================================
  * COMPONENT
@@ -224,7 +306,11 @@ export default function LineChart({
   const config = metricConfig[metric];
 
   const values = historicalData.map(
-    (dataPoint) => dataPoint.value
+    (dataPoint) =>
+      getChartValue(
+        dataPoint,
+        metric
+      )
   );
 
 
@@ -287,7 +373,8 @@ export default function LineChart({
   const minValue = Math.min(...values);
   const maxValue = Math.max(...values);
 
-  const valueRange = maxValue - minValue;
+  const valueRange =
+    maxValue - minValue;
 
   const minimumPadding =
     metric === "temperature"
@@ -301,8 +388,36 @@ export default function LineChart({
     minimumPadding
   );
 
-  const yMin = minValue - padding;
-  const yMax = maxValue + padding;
+
+  /*
+   * Metrics which must never display negative
+   * values on the Y-axis.
+   */
+
+  const zeroBasedMetric =
+    metric === "bootEpoch" ||
+    metric === "waterAlarm" ||
+    metric === "smokeAlarm" ||
+    metric === "humidity" ||
+    metric === "rssi";
+
+
+  /*
+   * Signal strength always uses a fixed
+   * normalized range from 0 to 100 %.
+   */
+
+  const yMin =
+    metric === "rssi"
+      ? 0
+      : zeroBasedMetric
+        ? Math.max(0, minValue - padding)
+        : minValue - padding;
+
+  const yMax =
+    metric === "rssi"
+      ? 100
+      : maxValue + padding;
 
 
   /* ============================================================
@@ -314,7 +429,10 @@ export default function LineChart({
       {
         label: config.label,
 
-        data: createChartData(historicalData),
+        data: createChartData(
+          historicalData,
+          metric
+        ),
 
         borderColor: chartColor,
         backgroundColor: chartColor,
@@ -419,7 +537,10 @@ export default function LineChart({
 
           callback: (value) =>
             `${Number(value).toFixed(
-              metric === "humidity" ? 0 : 1
+              metric === "humidity" ||
+              metric === "rssi"
+                ? 0
+                : 1
             )} ${config.unit}`,
         },
       },
