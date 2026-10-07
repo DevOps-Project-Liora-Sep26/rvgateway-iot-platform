@@ -9,15 +9,40 @@ reproducible and automated way.
 
 ### Test Environment
 
-**Unit tests** are generally executed during the build process, while 
+**Unit tests** are executed during the build process, while 
 **integration** and **end-to-end tests** are performed in the 
 development environment before the actual deployment to the production 
 environment.
 
-### Test Automation and CI/CD
+#### Tests within Docker Builds (CI/CD)
 
-All tests are designed to be **automated and reproducible** and will be 
-integrated into the CI/CD pipeline.
+Unit tests are executed as part of the Docker build process before the application image is created. A multi-stage build separates the test environment from the final application image.
+
+```text
+Source Code
+    │
+    ▼
+Docker Test Stage
+    ├── Install test dependencies
+    ├── Execute unit tests
+    │
+    └── Tests passed
+         │
+         ▼
+Application Image
+    │
+    ▼
+Development Environment
+    ├── Integration Tests
+    └── End-to-End Tests
+         │
+         ▼
+Production Environment
+```
+
+If the unit tests fail, the Docker build is stopped and no application image is created.
+
+Test dependencies are limited to the test stage and are not included in the final application image. The resulting image is deployed to the development environment for further testing. After successful validation, the same image can be promoted to the production environment.
 
 ## Unit Tests
 
@@ -282,13 +307,13 @@ during implementation.
 
 ## Integration Tests
 
-### MQTT Broker → Telemetry Ingest → InfluxDB
+### MQTT Test Agent → MQTT Broker → Telemetry Ingest → InfluxDB
 ### API ↔ MariaDB
 ### API ↔ InfluxDB
 ### Frontend ↔ API
 
 ## End-to-End Tests
 
-### MQTT Simulator → Frontend
+### MQTT Test Agent → Frontend
 
 ## Future Considerations
