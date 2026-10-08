@@ -1,0 +1,11 @@
+# Exclude local Python environment
+.venv/
+
+# Exclude Python runtime caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Exclude documentation
+README.md
