@@ -32,11 +32,11 @@ import mariadb
 # *************************************************
 def get_db_connection():
     return mariadb.connect(
-        host=os.getenv("MARIA_DB_HOST"),
-        port=int(os.getenv("MARIA_DB_PORT", "3306")),
-        user=os.getenv("MARIA_DB_USER"),
-        password=os.getenv("MARIA_DB_PASSWORD"),
-        database=os.getenv("MARIA_DB_NAME"),
+        host=os.getenv("MARIADB_HOST"),
+        port=int(os.getenv("MARIADB_PORT", "3306")),
+        user=os.getenv("MARIADB_USER"),
+        password=os.getenv("MARIADB_PASSWORD"),
+        database=os.getenv("MARIADB_NAME"),
     )
 
 
