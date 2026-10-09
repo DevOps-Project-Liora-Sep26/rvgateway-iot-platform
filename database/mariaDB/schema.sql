@@ -2,11 +2,11 @@
 -- DATABASE
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS webapp
+CREATE DATABASE IF NOT EXISTS `${MARIADB_NAME}`
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE webapp;
+USE '${MARIADB_NAME}';
 
 
 -- ============================================================
